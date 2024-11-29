@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Code2, Palette, Rocket } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -8,7 +8,14 @@ const Hero = () => {
   const headlines = [
     'Crafting Digital Experiences',
     'Building Modern Websites',
-    'Creating Innovative Solutions'
+    'Creating Innovative Solutions',
+    'Transforming Ideas into Reality'
+  ];
+
+  const skills = [
+    { icon: <Code2 className="w-6 h-6" />, text: 'Full Stack Development' },
+    { icon: <Palette className="w-6 h-6" />, text: 'UI/UX Design' },
+    { icon: <Rocket className="w-6 h-6" />, text: 'Performance Optimization' }
   ];
 
   useEffect(() => {
@@ -70,6 +77,30 @@ const Hero = () => {
         />
       </div>
 
+      {/* Floating Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-primary/20 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            animate={{
+              y: [null, Math.random() * -100, null],
+              x: [null, Math.random() * 100 - 50, null],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial="hidden"
@@ -78,6 +109,17 @@ const Hero = () => {
           className="max-w-4xl mx-auto text-center space-y-14"
         >
           <div className="space-y-8">
+            <motion.div 
+              className="flex items-center justify-center gap-2 text-sm font-medium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="px-3 py-1 rounded-full bg-primary/10 text-primary">
+                Available for Projects
+              </span>
+            </motion.div>
+
             <motion.h1 
               className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight h-24 md:h-32 flex items-center justify-center leading-[1.1]"
               variants={textVariants}
@@ -97,30 +139,60 @@ const Hero = () => {
                 </AnimatePresence>
               </span>
             </motion.h1>
+
             <motion.p
               variants={textVariants}
               className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
             >
-              Full-stack developer specializing in building exceptional digital experiences with modern technologies
+              Transforming ideas into exceptional digital experiences through innovative design and cutting-edge development.
             </motion.p>
+
+            {/* Skills Section */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-4 mt-8"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
+            >
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 backdrop-blur-sm border border-border/40"
+                >
+                  {skill.icon}
+                  <span>{skill.text}</span>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
-          <motion.div 
+          <motion.div
             variants={textVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center h-12 px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors duration-200 group"
+              className="group px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium inline-flex items-center gap-2 hover:bg-primary/90 transition-colors"
             >
               Get in Touch
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/projects"
-              className="inline-flex items-center justify-center h-12 px-8 py-3 border border-primary/20 hover:bg-primary/10 rounded-lg font-medium transition-colors duration-200"
+              className="group px-6 py-3 rounded-full bg-secondary/10 text-secondary-foreground font-medium inline-flex items-center gap-2 hover:bg-secondary/20 transition-colors"
             >
               View Projects
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </motion.div>
         </motion.div>

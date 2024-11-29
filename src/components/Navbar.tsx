@@ -1,176 +1,176 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Linkedin, Twitter } from "lucide-react";
-import { Button } from "./ui/button";
-import { ThemeToggle } from "./theme/ThemeToggle";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { ModeToggle } from "./theme/mode-toggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  const navItems = [
-    { path: "/", label: "Home" },
-    { path: "/about", label: "About" },
-    { path: "/projects", label: "Projects" },
-    { path: "/services", label: "Services" },
-    { path: "/contact", label: "Contact" },
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navigation = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Projects", href: "/projects" },
+    { name: "Blog", href: "/blog" },
+    { name: "Services", href: "/services" },
+    { name: "Contact", href: "/contact" },
   ];
 
-  const socialLinks = [
-    { 
-      icon: <Linkedin className="w-5 h-5" />, 
-      href: 'https://www.linkedin.com/in/muhammad-idrees-khan-796558117/',
-      label: 'LinkedIn'
+  const navVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
     },
-    { 
-      icon: <Twitter className="w-5 h-5" />, 
-      href: 'https://x.com/happyikhan',
-      label: 'X (Twitter)'
-    },
-  ];
+  };
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      x: "100%",
+      transition: {
+        duration: 0.2,
+      },
+    },
+    open: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+      },
+    }),
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
+    <motion.nav
+      initial="hidden"
+      animate="visible"
+      variants={navVariants}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "py-4 bg-background/80 backdrop-blur-lg border-b border-border/40 shadow-sm"
+          : "py-6"
+      }`}
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-2xl font-bold">
-            <motion.span
-              className="inline-block"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileHover={{
-                scale: 1.1,
-                transition: { duration: 0.2 }
-              }}
-            >
-              <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
-                IDREES
-              </span>
-              <span className="text-primary">.</span>
-            </motion.span>
+        <div className="flex items-center justify-between">
+          <Link
+            to="/"
+            className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-blue-500 bg-clip-text text-transparent"
+          >
+            Idrees
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === item.path
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                }`}
+            {navigation.map((link, i) => (
+              <motion.div
+                key={link.href}
+                custom={i}
+                variants={linkVariants}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {item.label}
-              </Link>
-            ))}
-
-            {/* Social Links */}
-            <div className="flex items-center space-x-4">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label={link.label}
+                <Link
+                  to={link.href}
+                  className={`relative font-medium transition-colors ${
+                    location.pathname === link.href
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
-                  {link.icon}
-                </a>
-              ))}
-            </div>
-
-            <ThemeToggle />
+                  {link.name}
+                  {location.pathname === link.href && (
+                    <motion.div
+                      layoutId="underline"
+                      className="absolute left-0 top-full h-0.5 w-full bg-primary"
+                    />
+                  )}
+                </Link>
+              </motion.div>
+            ))}
+            <ModeToggle />
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center space-x-4">
-            {/* Social Links for Mobile */}
-            <div className="flex items-center space-x-2">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label={link.label}
-                >
-                  {link.icon}
-                </a>
-              ))}
-            </div>
-
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative"
-              onClick={toggleMenu}
+          <div className="md:hidden flex items-center gap-4">
+            <ModeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 hover:bg-primary/10 rounded-lg transition-colors"
             >
-              <AnimatePresence mode="wait">
-                {isOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="h-5 w-5" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="h-5 w-5" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-border/40"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
+            className="fixed inset-0 top-[73px] bg-background/80 backdrop-blur-lg md:hidden"
           >
-            <div className="container mx-auto px-4 py-4 space-y-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`block text-sm font-medium transition-colors hover:text-primary ${
-                    location.pathname === item.path
-                      ? "text-primary"
-                      : "text-muted-foreground"
-                  }`}
-                  onClick={() => setIsOpen(false)}
+            <div className="flex flex-col items-center justify-center h-full space-y-8">
+              {navigation.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  custom={i}
+                  variants={linkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {item.label}
-                </Link>
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`text-xl font-medium ${
+                      location.pathname === link.href
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 

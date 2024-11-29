@@ -20,15 +20,15 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#8B5CF6", // Vivid Purple
+          DEFAULT: "#10B981", // Emerald Green
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#1A1F2C", // Dark Purple
-          foreground: "#F1F0FB", // Soft Gray
+          DEFAULT: "#064E3B", // Dark Forest Green
+          foreground: "#E5F6F0", // Soft Mint
         },
         accent: {
-          DEFAULT: "#D946EF", // Magenta Pink
+          DEFAULT: "#34D399", // Mint Green
           foreground: "#ffffff",
         },
       },
