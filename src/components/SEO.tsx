@@ -21,12 +21,12 @@ const SEO = ({
   author = 'Muhammad Idrees',
   twitterHandle = '@happyikhan'
 }: SEOProps) => {
-  const siteTitle = `${title} | Muhammad Idrees Portfolio`;
+  const siteTitle = title === 'Home' ? 'Idrees Portfolio' : `${title} | Idrees Portfolio`;
   
   return (
     <Helmet>
       {/* Basic Meta Tags */}
-      <title>Idrees Portfolio | Frontend React Developer</title>
+      <title>{siteTitle}</title>
       <meta name="description" content="Frontend React.js Developer specializing in modern web development. Expert in MERN stack, Next.js, and full-stack development." />
       <meta name="keywords" content="Frontend developer, React.js developer, Full stack developer, Node.js developer, Next.js developer, MERN stack developer, Web Developer Portfolio" />
       <meta name="author" content={author} />
