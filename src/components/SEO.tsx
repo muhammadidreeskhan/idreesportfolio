@@ -49,7 +49,6 @@ const SEO = ({
       
       {/* Additional Meta Tags for SEO */}
       <meta name="robots" content="index, follow" />
-      <meta name="google-site-verification" content="google68d9d6bf48320b14.html" />
       <meta name="theme-color" content="#10B981" />
       <meta name="msapplication-TileColor" content="#10B981" />
       
