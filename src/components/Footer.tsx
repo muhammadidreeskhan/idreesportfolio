@@ -1,23 +1,26 @@
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const socialLinks = [
     { 
-      icon: <Github className="w-6 h-6" />, 
+      icon: <Github className="w-5 h-5" />, 
       href: 'https://github.com/muhammadidreeskhan', 
-      label: 'GitHub' 
+      label: 'GitHub',
+      color: 'hover:text-[#2da44e]'
     },
     { 
-      icon: <Linkedin className="w-6 h-6" />, 
+      icon: <Linkedin className="w-5 h-5" />, 
       href: 'https://linkedin.com/in/muhammad-idrees-khan-796558117/', 
-      label: 'LinkedIn' 
+      label: 'LinkedIn',
+      color: 'hover:text-[#0a66c2]'
     },
     { 
-      icon: <Twitter className="w-6 h-6" />, 
+      icon: <Twitter className="w-5 h-5" />, 
       href: 'https://x.com/happyikhan', 
-      label: 'Twitter' 
+      label: 'Twitter',
+      color: 'hover:text-[#1da1f2]'
     },
   ];
 
@@ -29,109 +32,117 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-background border-t border-border/40">
-      <div className="container mx-auto px-4 py-16">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-12"
-        >
-          {/* Branding Section */}
-          <div className="space-y-6">
-            <motion.h3 
-              className="text-3xl font-bold relative inline-block"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
-                IDREES
-              </span>
-              <span className="text-primary animate-pulse">.</span>
-            </motion.h3>
-            <p className="text-muted-foreground max-w-sm text-lg leading-relaxed">
-              Crafting exceptional digital experiences with modern web technologies.
-            </p>
-            <div className="space-y-3 text-muted-foreground">
-              <motion.p 
-                className="flex items-center space-x-2"
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.2 }}
+    <footer className="relative mt-20">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5 pointer-events-none" />
+      
+      {/* Content */}
+      <div className="relative border-t border-primary/10 bg-background/80 backdrop-blur-xl">
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            {/* Branding Section */}
+            <div className="md:col-span-5 space-y-8">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="space-y-4"
               >
-                <span className="w-1 h-1 rounded-full bg-primary"></span>
-                <span>Karachi, Pakistan</span>
-              </motion.p>
-              <motion.a 
-                href="mailto:contactmuhammadidrees@gmail.com"
-                className="flex items-center space-x-2 hover:text-primary transition-all duration-300"
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span className="w-1 h-1 rounded-full bg-primary"></span>
-                <span>contactmuhammadidrees@gmail.com</span>
-              </motion.a>
-            </div>
-          </div>
-          
-          {/* Quick Links Section */}
-          <div className="space-y-6">
-            <h4 className="text-xl font-semibold text-foreground relative inline-block">
-              Quick Links
-              <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"></span>
-            </h4>
-            <nav className="flex flex-col space-y-3">
-              {quickLinks.map((link) => (
-                <motion.div
-                  key={link.label}
+                <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary inline-flex items-center gap-2">
+                  IDREES<span className="text-primary animate-pulse">.</span>
+                </h3>
+                <p className="text-muted-foreground/80 text-lg leading-relaxed">
+                  Crafting exceptional digital experiences with modern web technologies.
+                </p>
+              </motion.div>
+
+              <div className="space-y-4">
+                <motion.div 
+                  className="flex items-center gap-3 text-muted-foreground/80 hover:text-primary transition-colors"
                   whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
                 >
-                  <Link
-                    to={link.href}
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 flex items-center space-x-2"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-primary"></span>
-                    <span>{link.label}</span>
-                  </Link>
+                  <div className="p-2 rounded-lg bg-primary/5 text-primary">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <span>Karachi, Pakistan</span>
                 </motion.div>
-              ))}
-            </nav>
-          </div>
-          
-          {/* Social Links Section */}
-          <div className="space-y-6">
-            <h4 className="text-xl font-semibold text-foreground relative inline-block">
-              Connect
-              <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"></span>
-            </h4>
-            <div className="flex space-x-6">
-              {socialLinks.map((link) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 p-2 hover:bg-primary/5 rounded-lg"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={link.label}
+
+                <motion.a 
+                  href="mailto:contactmuhammadidrees@gmail.com"
+                  className="flex items-center gap-3 text-muted-foreground/80 hover:text-primary transition-colors"
+                  whileHover={{ x: 5 }}
                 >
-                  {link.icon}
+                  <div className="p-2 rounded-lg bg-primary/5 text-primary">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <span>contactmuhammadidrees@gmail.com</span>
                 </motion.a>
-              ))}
+              </div>
+            </div>
+
+            {/* Quick Links Section */}
+            <div className="md:col-span-3 space-y-8">
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold">
+                  Quick Links
+                </h4>
+                <div className="h-1 w-12 bg-gradient-to-r from-primary to-primary/40 rounded-full" />
+              </div>
+              
+              <nav className="grid gap-3">
+                {quickLinks.map((link) => (
+                  <motion.div
+                    key={link.label}
+                    whileHover={{ x: 5 }}
+                  >
+                    <Link
+                      to={link.href}
+                      className="text-muted-foreground/80 hover:text-primary transition-colors flex items-center gap-3 group"
+                    >
+                      <div className="h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+            </div>
+
+            {/* Social Links Section */}
+            <div className="md:col-span-4 space-y-8">
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold">
+                  Connect With Me
+                </h4>
+                <div className="h-1 w-12 bg-gradient-to-r from-primary to-primary/40 rounded-full" />
+              </div>
+
+              <div className="flex gap-4">
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-3 rounded-lg bg-primary/5 ${social.color} transition-all hover:scale-110`}
+                    whileHover={{ y: -5 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </div>
-        </motion.div>
-        
-        {/* Copyright Section */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-16 pt-8 border-t border-border/40 text-center text-muted-foreground"
-        >
-          <p className="text-sm">&copy; {new Date().getFullYear()} IDREES. All rights reserved.</p>
-        </motion.div>
+
+          {/* Copyright Section */}
+          <motion.div 
+            className="mt-16 pt-8 border-t border-primary/5 text-center text-muted-foreground/60"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+          >
+            <p> {new Date().getFullYear()} Muhammad Idrees. All rights reserved.</p>
+          </motion.div>
+        </div>
       </div>
     </footer>
   );

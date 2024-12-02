@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Calendar, MapPin, Download, ExternalLink } from
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-import OptimizedImage from '@/components/OptimizedImage';
+import { Image } from "../components/Image";
 import SEO from '@/components/SEO';
 
 const About = () => {
@@ -75,13 +75,11 @@ const About = () => {
               className="relative"
             >
               <div className="aspect-square rounded-2xl overflow-hidden border-2 border-primary/20">
-                <OptimizedImage
-                  src="/assets/profile.jpg"
+                <Image
+                  src="/assets/images/profile.jpg"
                   alt="Muhammad Idrees"
-                  width={500}
-                  height={500}
-                  priority={true}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  loading="eager"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Project } from "@/types/project";
@@ -9,31 +10,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Image } from "@/components/ui/image";
 
 interface ProjectCardProps {
   project: Project;
   index: number;
 }
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
+export const ProjectCard = memo(function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
-      whileHover={{ y: -5 }}
-      className="w-full"
+      className="w-full transform-gpu"
     >
       <Card className="group h-full overflow-hidden border border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <CardHeader className="p-0">
           <AspectRatio ratio={16 / 9}>
-            <img
+            <Image
               src={project.image}
               alt={project.title}
-              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              className="object-cover w-full h-full transition-transform duration-300 transform-gpu group-hover:scale-105"
+              loading="lazy"
             />
           </AspectRatio>
         </CardHeader>
@@ -45,7 +47,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               <Badge
                 key={tech.name}
                 variant="secondary"
-                style={{ backgroundColor: tech.color + '20', color: tech.color }}
+                style={{ 
+                  backgroundColor: tech.color + '20', 
+                  color: tech.color 
+                }}
               >
                 {tech.name}
               </Badge>
@@ -83,4 +88,4 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       </Card>
     </motion.div>
   );
-}
+});

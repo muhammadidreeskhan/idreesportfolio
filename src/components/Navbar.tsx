@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { ModeToggle } from "./theme/mode-toggle";
+import { ModeToggle } from "@/components/theme/mode-toggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,70 +10,38 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navigation = [
+  const navigation = useMemo(() => [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Projects", href: "/projects" },
     { name: "Blog", href: "/blog" },
     { name: "Services", href: "/services" },
     { name: "Contact", href: "/contact" },
-  ];
-
-  const navVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      x: "100%",
-      transition: {
-        duration: 0.2,
-      },
-    },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-      },
-    }),
-  };
+  ], []);
 
   return (
     <motion.nav
-      initial="hidden"
-      animate="visible"
-      variants={navVariants}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className={`fixed top-0 left-0 right-0 z-50 transform-gpu ${
         scrolled
           ? "py-4 bg-background/80 backdrop-blur-lg border-b border-border/40 shadow-sm"
           : "py-6"
@@ -90,13 +58,13 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((link, i) => (
+            {navigation.map((link) => (
               <motion.div
                 key={link.href}
-                custom={i}
-                variants={linkVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="transform-gpu"
               >
                 <Link
                   to={link.href}
@@ -110,7 +78,8 @@ const Navbar = () => {
                   {location.pathname === link.href && (
                     <motion.div
                       layoutId="underline"
-                      className="absolute left-0 top-full h-0.5 w-full bg-primary"
+                      className="absolute left-0 top-full h-0.5 w-full bg-primary transform-gpu"
+                      transition={{ duration: 0.2 }}
                     />
                   )}
                 </Link>
@@ -136,22 +105,20 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
-            className="fixed inset-0 top-[73px] bg-background/80 backdrop-blur-lg md:hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 top-[73px] bg-background/80 backdrop-blur-lg md:hidden transform-gpu"
           >
             <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {navigation.map((link, i) => (
+              {navigation.map((link) => (
                 <motion.div
                   key={link.href}
-                  custom={i}
-                  variants={linkVariants}
-                  initial="hidden"
-                  animate="visible"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="transform-gpu"
                 >
                   <Link
                     to={link.href}

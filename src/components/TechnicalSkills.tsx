@@ -32,7 +32,7 @@ const skills: Skill[] = [
     name: "Tailwind CSS",
     level: 95,
     category: "Frontend",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
+    icon: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg"
   },
 
   // Backend
@@ -78,7 +78,7 @@ const skills: Skill[] = [
     name: "AWS",
     level: 70,
     category: "Tools",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"
+    icon: "https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg"
   },
   {
     name: "Figma",

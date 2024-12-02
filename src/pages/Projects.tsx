@@ -19,7 +19,7 @@ const Projects = () => {
         { name: "TailwindCSS", color: "#06b6d4" },
         { name: "Framer Motion", color: "#ff0055" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?web,development",
       liveUrl: "https://devnovate-web-wizardry-123.vercel.app/",
       githubUrl: "#",
       category: "frontend",
@@ -34,7 +34,7 @@ const Projects = () => {
         { name: "Tailwind", color: "#06b6d4" },
         { name: "Google Maps", color: "#4285F4" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?map,education",
       liveUrl: "https://tutor-map-connector.vercel.app/",
       githubUrl: "#",
       category: "fullstack",
@@ -49,20 +49,19 @@ const Projects = () => {
         { name: "MongoDB", color: "#47A248" },
         { name: "Express", color: "#000000" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?education,technology",
       liveUrl: "https://edsp-solution.vercel.app/",
       githubUrl: "#",
       category: "fullstack"
     },
     {
       title: "Historical Boundary Mapper",
-      description: "Interactive mapping application for visualizing and exploring historical boundaries.",
+      description: "Interactive mapping application for visualizing historical boundaries and geographical data.",
       tech: [
-        { name: "React", color: "#61dafb" },
         { name: "Leaflet", color: "#199900" },
         { name: "TypeScript", color: "#3178c6" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?map,history",
       liveUrl: "https://historical-boundary-mapper-09.vercel.app/",
       githubUrl: "#",
       category: "frontend",
@@ -70,92 +69,84 @@ const Projects = () => {
     },
     {
       title: "Business ERP System",
-      description: "Comprehensive enterprise resource planning system for business management.",
+      description: "Comprehensive enterprise resource planning system for modern businesses.",
       tech: [
-        { name: "Next.js", color: "#0070f3" },
-        { name: "PostgreSQL", color: "#336791" },
         { name: "Prisma", color: "#2D3748" },
         { name: "Tailwind", color: "#06b6d4" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?business,technology",
       liveUrl: "https://business-erpsystem.vercel.app/",
       githubUrl: "#",
       category: "fullstack"
     },
     {
       title: "WhatsApp Business Integration",
-      description: "Business communication platform leveraging WhatsApp's API for enhanced customer engagement.",
+      description: "WhatsApp integration solution for business communication and automation.",
       tech: [
-        { name: "React", color: "#61dafb" },
         { name: "WhatsApp API", color: "#25D366" },
         { name: "Node.js", color: "#339933" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?communication,business",
       liveUrl: "https://whatsappbusiness.vercel.app/",
       githubUrl: "#",
       category: "fullstack"
     },
     {
       title: "Tech News AI",
-      description: "AI-powered tech news aggregator with personalized content recommendations.",
+      description: "AI-powered tech news aggregator and summarizer.",
       tech: [
-        { name: "Next.js", color: "#0070f3" },
         { name: "OpenAI", color: "#412991" },
         { name: "TailwindCSS", color: "#06b6d4" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?artificial,intelligence",
       liveUrl: "https://tech-news-ai-rouge.vercel.app/",
       githubUrl: "#",
       category: "frontend"
     },
     {
       title: "Vacant Home Harvest",
-      description: "Platform connecting property owners with urban farmers for sustainable land use.",
+      description: "Platform for managing and monitoring vacant properties.",
       tech: [
-        { name: "React", color: "#61dafb" },
         { name: "Firebase", color: "#FFCA28" },
         { name: "Google Maps", color: "#4285F4" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?home,architecture",
       liveUrl: "https://vacant-home-harvest.vercel.app/",
       githubUrl: "#",
       category: "fullstack"
     },
     {
       title: "AWS Amplify Generator",
-      description: "Development toolkit for generating AWS Amplify applications with predefined templates.",
+      description: "Code generator for AWS Amplify applications.",
       tech: [
-        { name: "AWS Amplify", color: "#FF9900" },
         { name: "React", color: "#61dafb" },
         { name: "GraphQL", color: "#E10098" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?cloud,computing",
       liveUrl: "https://awsamplyfygen2.vercel.app/",
       githubUrl: "#",
       category: "fullstack"
     },
     {
       title: "Elegant Haven",
-      description: "Luxury real estate platform with virtual tours and property management features.",
+      description: "Luxury real estate platform with 3D visualization.",
       tech: [
-        { name: "Next.js", color: "#0070f3" },
         { name: "Three.js", color: "#000000" },
         { name: "Prisma", color: "#2D3748" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?luxury,interior",
       liveUrl: "https://elegant-haven.vercel.app/",
       githubUrl: "#",
       category: "frontend"
     },
     {
       title: "Quick Splash Mail",
-      description: "Modern email marketing platform with drag-and-drop template builder.",
+      description: "Email marketing automation platform.",
       tech: [
-        { name: "React", color: "#61dafb" },
         { name: "Node.js", color: "#339933" },
         { name: "SendGrid", color: "#1A82E2" }
       ],
-      image: "/placeholder.svg",
+      image: "https://source.unsplash.com/1600x900/?email,marketing",
       liveUrl: "https://quick-splash-mail.vercel.app/",
       githubUrl: "#",
       category: "fullstack"
