@@ -8,6 +8,7 @@ import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
 import { Button } from '../components/ui/button';
 import { blogPosts } from './Blog';
+import { generateBlogPostSchema } from "../utils/schema";
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -31,11 +32,21 @@ const BlogPost = () => {
     );
   }
 
+  const blogPostSchema = generateBlogPostSchema({
+    title: post.title,
+    description: post.excerpt,
+    image: post.image,
+    datePublished: post.date,
+    author: "Muhammad Idrees",
+    url: `https://idrees-portfolio.vercel.app/blog/${post.slug}`
+  });
+
   return (
     <div className="flex flex-col min-h-screen">
       <SEO 
         title={`${post.title} | Your Name`}
         description={post.excerpt}
+        schema={blogPostSchema}
       />
       <Navbar />
       <motion.main 
@@ -45,7 +56,7 @@ const BlogPost = () => {
         className="flex-grow container mx-auto px-4 py-8"
       >
         <article className="max-w-4xl mx-auto">
-          <Link to="/blog">
+          <Link to="/blog" className="inline-block">
             <Button variant="ghost" className="mb-6">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Blog
