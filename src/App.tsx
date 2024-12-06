@@ -12,17 +12,21 @@ import { ThemeProvider as NextThemes } from "next-themes";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { PageLoader, ComponentLoader } from "./components/ui/loader";
 
-// Lazy load components with loading state
-const lazyWithPrefetch = (factory: () => Promise<any>, minDelay = 500) => {
-  const Component = lazy(() => 
-    Promise.all([
-      factory(),
-      new Promise(resolve => setTimeout(resolve, minDelay))
-    ]).then(([module]) => module)
-  );
-  Component.preload = factory;
-  return Component;
-};
+// Extend the LazyExoticComponent type to include preload method
+type LazyComponentWithPreload<T> = React.LazyExoticComponent<React.ComponentType<T>> & {
+  preload: () => Promise<void>;
+}
+
+// Modify lazyWithPrefetch to return the extended type
+function lazyWithPrefetch<T>(factory: () => Promise<{ default: React.ComponentType<T> }>): LazyComponentWithPreload<T> {
+  const LazyComponent = lazy(factory) as LazyComponentWithPreload<T>;
+  
+  LazyComponent.preload = () => {
+    return factory().then(() => {});
+  };
+  
+  return LazyComponent;
+}
 
 // Lazy load page components
 const Index = lazyWithPrefetch(() => import("./pages/Index"));
