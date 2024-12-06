@@ -57,15 +57,12 @@ export const measureWebVitals = (onPerfEntry: (metric: PerformanceMetric) => voi
   if ('performance' in window) {
     const observer = new PerformanceObserver((list) => {
       list.getEntries().forEach((entry) => {
-        if (entry.entryType === 'resource') {
-          const resourceEntry = entry as PerformanceResourceTiming;
-          console.log(`Resource Timing - ${resourceEntry.name}:`, {
-            duration: resourceEntry.duration,
-            startTime: resourceEntry.startTime,
-            fetchStart: resourceEntry.fetchStart,
-            responseEnd: resourceEntry.responseEnd
-          });
-        }
+        console.log('Resource Timing -', entry.name + ':', {
+          startTime: entry.startTime,
+          duration: entry.duration,
+          fetchStart: entry.fetchStart,
+          responseEnd: entry.responseEnd
+        });
       });
     });
 
