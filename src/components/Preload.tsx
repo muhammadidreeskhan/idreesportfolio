@@ -6,20 +6,24 @@ const Preload = () => {
 
   useEffect(() => {
     // Preload critical routes
-    const preloadRoutes = () => {
+    const preloadRoutes = async () => {
       const routes = [
         () => import('../pages/Index'),
         () => import('../pages/About'),
         () => import('../pages/Projects'),
       ];
 
-      routes.forEach(route => {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.as = 'script';
-        link.href = route().then(module => module.default);
-        document.head.appendChild(link);
-      });
+      for (const route of routes) {
+        try {
+          await route();
+          const link = document.createElement('link');
+          link.rel = 'modulepreload';
+          link.href = `/${route.toString().split("'")[1]}.js`;
+          document.head.appendChild(link);
+        } catch (error) {
+          console.error('Error preloading route:', error);
+        }
+      }
     };
 
     // Preload critical images
@@ -34,6 +38,7 @@ const Preload = () => {
         link.rel = 'preload';
         link.as = 'image';
         link.href = src;
+        link.type = src.endsWith('.jpg') ? 'image/jpeg' : 'image/png';
         document.head.appendChild(link);
       });
     };
