@@ -7,7 +7,8 @@ const IMAGE_CACHE = 'image-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/fonts/your-main-font.woff2'
 ];
 
 const CACHE_STRATEGIES = {
