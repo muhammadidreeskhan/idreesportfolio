@@ -11,6 +11,7 @@ import { Toaster } from "./components/ui/toaster";
 import { ThemeProvider as NextThemes } from "next-themes";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { PageLoader, ComponentLoader } from "./components/ui/loader";
+import React from 'react';
 
 // Extend the LazyExoticComponent type to include preload method
 type LazyComponentWithPreload<T> = React.LazyExoticComponent<React.ComponentType<T>> & {
