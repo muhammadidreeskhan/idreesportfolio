@@ -9,6 +9,30 @@ interface SEOProps {
   type?: 'website' | 'article' | 'profile';
   author?: string;
   twitterHandle?: string;
+  schema?: {
+    "@context": string;
+    "@type": string;
+    headline: string;
+    description: string;
+    image: string;
+    datePublished: string;
+    author: {
+      "@type": string;
+      name: string;
+    };
+    publisher: {
+      "@type": string;
+      name: string;
+      logo: {
+        "@type": string;
+        url: string;
+      };
+    };
+    mainEntityOfPage: {
+      "@type": string;
+      "@id": string;
+    };
+  };
 }
 
 const SEO = ({
@@ -19,7 +43,8 @@ const SEO = ({
   url = 'https://idrees-portfolio.vercel.app/',
   type = 'website',
   author = 'Muhammad Idrees',
-  twitterHandle = '@happyikhan'
+  twitterHandle = '@happyikhan',
+  schema
 }: SEOProps) => {
   const siteTitle = title === 'Home' ? 'Idrees Portfolio' : `${title} | Idrees Portfolio`;
   
@@ -72,6 +97,11 @@ const SEO = ({
           ]
         })}
       </script>
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 };
