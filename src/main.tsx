@@ -1,18 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
-import emailjs from '@emailjs/browser';
-import { preloadFonts } from './fonts';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './index.css'
+import emailjs from '@emailjs/browser'
 
-// Initialize EmailJS
-emailjs.init('YKFSzKUzPohomIiWr');
+emailjs.init('YKFSzKUzPohomIiWr')
 
-// Preload fonts
-preloadFonts();
+const rootElement = document.getElementById('root')
+if (!rootElement) throw new Error('Failed to find the root element')
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = ReactDOM.createRoot(rootElement)
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-);
+  </React.StrictMode>
+)
