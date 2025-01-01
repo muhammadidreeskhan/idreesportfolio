@@ -5,3 +5,4 @@ import React, { createContext } from 'react'; // Ensure createContext is importe
 const MyContext = createContext(); // Example usage of createContext
 
 // ...existing code...
+console.log('MyContext:', MyContext);
